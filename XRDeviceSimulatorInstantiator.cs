@@ -5,6 +5,17 @@ public class XRDeviceSimulatorInstantiator : MonoBehaviour
 {
 #if UNITY_EDITOR
     [SerializeField] private XRDeviceSimulator deviceSimulatorPrefab;
-    private void Awake() => DontDestroyOnLoad(Instantiate(deviceSimulatorPrefab.gameObject));
+
+    private static bool _isInstantiate;
+
+    private void Awake()
+    {
+        if (!_isInstantiate)
+        {
+            DontDestroyOnLoad(Instantiate(deviceSimulatorPrefab.gameObject));
+
+            _isInstantiate = true;
+        }
+    }
 #endif
 }
